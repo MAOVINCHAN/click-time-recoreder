@@ -1,0 +1,25 @@
+{
+  "name": "click-time-recorder",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "glup": "node ./node_modules/gulp/bin/gulp.js"
+  },
+  "keywords": ["click time recorder", "click time"],
+  "author": "Auhoam <Auhoam@gmail.com> (https://github.com/MAOVINCHAN/click-time-recorder)",
+  "license": "MIT",
+  "description": "Record the click time of the configuration text.",
+  "devDependencies": {
+    "fs-extra": "^11.3.0",
+    "gulp": "^5.0.1",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-htmlmin": "^5.0.1",
+    "gulp-uglify": "^3.0.2"
+  },
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/MAOVINCHAN/click-time-recorder"
+  }
+}

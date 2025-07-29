@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>点击时间记录器</title>
+  <link rel="stylesheet" href="./css/popup.css">
+  <link rel="stylesheet" href="./css/pagination.css">
+  <link rel="stylesheet" href="./css/confirm.css">
+  <link rel="stylesheet" href="./css/message.css">
+</head>
+
+<body>
+  <!-- 新增头部 -->
+  <div class="app-header">
+    <div class="header-title">
+      <span class="icon"></span>
+      <span class="title">点击时间记录器</span>
+    </div>
+    <div class="origin-container">
+      <div class="origin-status"></div>
+      <div class="origin-url" id="origin-url">加载中...</div>
+      <label class="switch">
+        <input type="checkbox" id="origin-toggle">
+        <span class="slider"></span>
+      </label>
+    </div>
+  </div>
+
+  <!-- 主内容容器 -->
+  <div class="main-container">
+    <div class="tabs-container">
+      <div class="tab active" data-tab="records">📝 记录管理</div>
+      <div class="tab" data-tab="settings">⚙️ 字段设置</div>
+    </div>
+
+    <!-- 记录管理选项卡 -->
+    <div id="records-tab" class="tab-content active">
+      <h2 class="section-title">📊 记录列表</h2>
+      <!-- <p style="text-align: center; margin-bottom: 20px; color: #64748b;">
+        根据您设置的字段动态展示记录信息
+      </p> -->
+
+      <!-- <button class="add-record-btn">
+        <span>+</span> 添加新记录
+      </button> -->
+
+      <div class="no-records" id="no-records">
+        <div class="no-records-icon">📭</div>
+        <h3>暂无记录数据</h3>
+        <p>1. 配置要监听的字段</p>
+        <p>2. 去允许运行的网页点击配置的文本</p>
+      </div>
+
+      <!-- <div class="records-table-container">
+        <table class="records-table">
+          <thead>
+            <tr id="table-headers">
+              <th>ID</th>
+              <th>姓名</th>
+              <th>年龄</th>
+              <th>职业</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody id="records-body">
+            <tr>
+              <td>1</td>
+              <td>张三</td>
+              <td>28</td>
+              <td>设计师</td>
+              <td>
+                <button class="action-btn delete">删除</button>
+              </td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>李四</td>
+              <td>32</td>
+              <td>工程师</td>
+              <td>
+                <button class="action-btn delete">删除</button>
+              </td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>王五</td>
+              <td>25</td>
+              <td>产品经理</td>
+              <td>
+                <button class="action-btn delete">删除</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div> -->
+
+      <!-- <div class="pagination-container">
+        <div class="pagination-info" id="pagination-info">显示 0-0 / 共 0 条</div>
+        <div class="pagination-controls">
+          <button class="pagination-btn first-page" title="第一页">«</button>
+          <button class="pagination-btn prev-page" title="上一页">‹</button>
+          <div class="page-numbers" id="page-numbers"></div>
+          <button class="pagination-btn next-page" title="下一页">›</button>
+          <button class="pagination-btn last-page" title="最后一页">»</button>
+        </div>
+        <div class="page-size-selector">
+          <span>每页显示：</span>
+          <select id="page-size-select" disabled>
+            <option value="5" selected>5</option>
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+          </select>
+        </div>
+      </div> -->
+      
+    </div>
+
+    <!-- 字段设置选项卡 - 优化后的布局 -->
+    <div id="settings-tab" class="tab-content">
+      <div class="settings-layout">
+        <!-- 字段设置部分 -->
+        <div class="fields-section">
+          <h2 class="section-title">
+            📝 字段设置
+            <!-- <span class="section-subtitle">(点击网页上的这些字段，将被记录)</span> -->
+          </h2>
+          <!-- <p style="text-align: center; margin-bottom: 20px; color: #64748b;">
+            添加、编辑和管理您的字段，每个字段一行，最多可添加5个字段
+          </p> -->
+
+          <div id="fields-container">
+            <div class="empty-state">
+              <div class="empty-icon">📭</div>
+              <h3>暂无字段</h3>
+              <p>点击下方"添加新字段"按钮开始创建您的第一个字段</p>
+            </div>
+          </div>
+
+          <button id="add-btn" class="add-btn">
+            <span>+</span> 添加新字段
+          </button>
+          <div class="counter">当前字段数: <span id="count">0</span>/5</div>
+        </div>
+
+        <!-- 保存设置部分 -->
+        <div class="settings-section">
+          <h2 class="section-title">⏳ 保存设置</h2>
+          <div class="save-days-container">
+            <div class="save-days-label">保存天数(1-30天)：</div>
+            <input type="number" id="save-days" min="1" max="30">
+          </div>
+        </div>
+
+        <!-- 保存按钮 -->
+        <button id="save-btn" class="save-btn">
+          <span>💾</span> 保存所有设置
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 消息容器 -->
+  <div class="message-container" id="message-container"></div>
+
+  <!-- 自定义 confirm 弹窗结构 -->
+  <div id="customConfirmOverlay" class="confirm-overlay">
+    <div class="confirm-dialog">
+      <div class="confirm-content">
+        <div class="confirm-title" id="confirmTitle"></div>
+        <div class="confirm-message" id="confirmMessage"></div>
+        <div class="confirm-buttons">
+          <button class="confirm-button cancel" id="confirmCancelBtn"></button>
+          <button class="confirm-button confirm" id="confirmOkBtn"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="./js/utils.js"></script>
+  <script src="./js/popup.js"></script>
+</body>
+
+</html>
