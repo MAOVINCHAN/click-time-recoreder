@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "glup": "node ./node_modules/gulp/bin/gulp.js"
+    "gulp": "node ./node_modules/gulp/bin/gulp.js"
   },
   "keywords": ["click time recorder", "click time"],
   "author": "Auhoam <Auhoam@gmail.com> (https://github.com/MAOVINCHAN/click-time-recorder)",
