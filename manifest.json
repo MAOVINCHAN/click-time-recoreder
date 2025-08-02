@@ -3,7 +3,7 @@
   "name": "点击时间记录器",
   "version": "1.0",
   "description": "记录用户在特定网页点击已配置字段的时间",
-  "permissions": ["storage", "activeTab", "scripting", "tabs", "management"],
+  "permissions": ["storage", "activeTab", "scripting", "tabs"],
   "background": {
     "service_worker": "background.js"
   },
